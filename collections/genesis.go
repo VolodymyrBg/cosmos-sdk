@@ -107,14 +107,8 @@ func (m Map[K, V]) doDecodeJSON(reader io.Reader, onEntry func(key K, value V) e
 	}
 
 	for decoder.More() {
-		var rawJSON json.RawMessage
-		err := decoder.Decode(&rawJSON)
-		if err != nil {
-			return err
-		}
-
 		var mapEntry jsonMapEntry
-		err = json.Unmarshal(rawJSON, &mapEntry)
+		err := decoder.Decode(&mapEntry)
 		if err != nil {
 			return err
 		}
